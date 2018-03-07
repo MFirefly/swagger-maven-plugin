@@ -91,6 +91,54 @@
         }
       }
     },
+    "/myResourceImpl/list" : {
+      "get" : {
+        "summary" : "Get a list of items",
+        "description" : "This is a contrived example",
+        "operationId" : "getListOfItems",
+        "produces" : [ "application/json", "application/xml" ],
+        "responses" : {
+          "200" : {
+            "description" : "successful operation",
+            "schema" : {
+              "type" : "array",
+              "items" : {
+                "$ref" : "#/definitions/ListItem"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/myResourceImpl/{firstParamConcrete}/properties" : {
+      "get" : {
+      "summary" : "Get a response",
+      "description" : "This is a contrived example",
+      "operationId" : "testParamInheritance",
+      "produces" : [ "application/json", "application/xml" ],
+      "parameters" : [ {
+        "name" : "firstParamConcrete",
+        "in" : "path",
+        "required" : true,
+        "type" : "string"
+      }, {
+        "name" : "secondParamAbstract",
+        "in" : "query",
+        "required" : true,
+        "type" : "string"
+      }, {
+        "name" : "thirdParamInterface",
+        "in" : "query",
+        "required" : false,
+        "type" : "string"
+      } ],
+      "responses" : {
+        "default" : {
+          "description" : "successful operation"
+        }
+      }
+      }
+    },
     "/pet": {
       "get": {
         "tags": [
@@ -194,6 +242,49 @@
           },
           "405": {
             "description": "Validation exception"
+          }
+        },
+        "security": [
+          {
+            "petstore_auth": [
+              "write:pets",
+              "read:pets"
+            ]
+          }
+        ]
+      }
+    },
+    "/pet/findAll" : {
+      "get": {
+        "tags": [
+          "pet"
+        ],
+        "summary" : "Finds all Pets",
+        "description" : "Returns a paginated list of all the Pets.",
+        "operationId": "findAllPaginated",
+        "produces": [
+          "application/xml",
+          "application/json"
+        ],
+        "parameters" : [
+          {
+            "name" : "pageNumber",
+            "in" : "query",
+            "description" : "pageNumber",
+            "required" : true,
+            "type":"integer",
+            "format" : "int32"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "$ref": "#/definitions/PagedListPet"
+            }
+          },
+          "400": {
+            "description": "Invalid page number value"
           }
         },
         "security": [
@@ -604,6 +695,9 @@
         "responses" : {
           "401" : {
             "description" : "Some vendor error description"
+          },
+          "501" : {
+            "description" : "Some vendor error description added using swaggerExtension"
           },
           "default" : {
             "description" : "successful operation"
@@ -1167,6 +1261,44 @@
         }
       }
     },
+    "/swaggerless/subresource/{name}" : {
+      "get" : {
+        "operationId" : "getPetByNameSubresource",
+        "parameters" : [ {
+          "name" : "name",
+          "in" : "path",
+          "required" : true,
+          "type" : "string"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "successful operation",
+            "schema" : {
+              "$ref" : "#/definitions/Pet"
+            }
+          }
+        }
+      }
+    },
+    "/swaggerless/{petId}" : {
+      "get" : {
+        "operationId" : "getPetByName",
+        "parameters" : [ {
+          "name" : "name",
+          "in" : "path",
+          "required" : true,
+          "type" : "string"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "successful operation",
+            "schema" : {
+             "$ref" : "#/definitions/Pet"
+            }
+          }
+        }
+      }
+    },
     "/user": {
       "post": {
         "tags": [
@@ -1434,6 +1566,11 @@
       "name": "api_key",
       "in": "header"
     },
+    "api_key_2": {
+      "type": "apiKey",
+      "name": "api_key_2",
+      "in": "header"
+    },
     "basicAuth": {
       "type": "basic"
     },
@@ -1453,14 +1590,34 @@
       "properties": {
         "id": {
           "type": "integer",
-          "format": "int64"
+          "format": "int64",
+          "xml": {
+            "namespace": "http://com.wordnik/sample/model/category"
+          }
         },
         "name": {
-          "type": "string"
+          "type": "string",
+          "xml": {
+            "namespace": "http://com.wordnik/sample/model/category"
+          }
         }
       },
       "xml": {
-        "name": "Category"
+        "name": "Category",
+        "namespace": "http://com.wordnik/sample/model/category"
+      }
+    },
+    "ListItem" : {
+      "type" : "object",
+      "properties" : {
+        "id" : {
+          "type" : "integer",
+          "format" : "int64"
+        }
+      },
+      "xml" : {
+        "name" : "ListItem",
+        "namespace": "http://com.wordnik/sample/model"
       }
     },
     "Order": {
@@ -1499,8 +1656,47 @@
           }
       },
       "xml": {
-        "name": "Order"
+        "name": "Order",
+        "namespace": "http://com.wordnik/sample/model"
       }
+    },
+    "PagedList" : {
+    	"type" : "object",
+    	"properties" : {
+    	  "items" : {
+    	  	"type" : "array",
+    	  	"items" : {
+    	  	  "type" : "object"
+    	  	}
+    	  },
+    	  "pageNumber" : {
+    	    "type" : "integer",
+    	    "format" : "int32"
+    	  },
+    	  "totalItems" : {
+    	    "type" : "integer",
+    	    "format" : "int32"
+    	  }
+    	}
+    },
+    "PagedListPet" : {
+    	"type" : "object",
+    	"properties" : {
+    	  "items" : {
+    	  	"type" : "array",
+    	  	"items" : {
+    	  	  "$ref" : "#/definitions/Pet"
+    	  	}
+    	  },
+    	  "pageNumber" : {
+    	    "type" : "integer",
+    	    "format" : "int32"
+    	  },
+    	  "totalItems" : {
+    	    "type" : "integer",
+    	    "format" : "int32"
+    	  }
+    	}
     },
     "Pet": {
       "type": "object",
@@ -1554,7 +1750,8 @@
         }
       },
       "xml": {
-        "name": "Pet"
+        "name": "Pet",
+        "namespace": "http://com.wordnik/sample/model"
       }
     },
     "Tag": {
@@ -1569,7 +1766,8 @@
         }
       },
       "xml": {
-        "name": "Tag"
+        "name": "Tag",
+        "namespace": "http://com.wordnik/sample/model"
       }
     },
     "User": {
@@ -1605,7 +1803,8 @@
         }
       },
       "xml": {
-        "name": "User"
+        "name": "User",
+        "namespace": "http://com.wordnik/sample/model"
       }
     }
   }

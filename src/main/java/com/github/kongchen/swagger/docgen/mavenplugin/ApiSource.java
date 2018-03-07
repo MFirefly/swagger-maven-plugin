@@ -1,19 +1,20 @@
 package com.github.kongchen.swagger.docgen.mavenplugin;
 
-import io.swagger.annotations.SwaggerDefinition;
-import io.swagger.models.Contact;
-import io.swagger.models.Info;
-import io.swagger.models.License;
-import org.apache.maven.plugins.annotations.Parameter;
-import org.reflections.Reflections;
-import org.springframework.core.annotation.AnnotationUtils;
-
 import java.io.File;
 import java.lang.annotation.Annotation;
 import java.util.ArrayList;
 import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Set;
+
+import org.apache.maven.plugins.annotations.Parameter;
+import org.reflections.Reflections;
+import org.springframework.core.annotation.AnnotationUtils;
+
+import io.swagger.annotations.SwaggerDefinition;
+import io.swagger.models.Contact;
+import io.swagger.models.Info;
+import io.swagger.models.License;
 
 /**
  * User: kongchen
@@ -96,12 +97,22 @@ public class ApiSource {
     @Parameter
     private String swaggerApiReader;
 
+    /**
+     * List of full qualified class names of SwaggerExtension implementations to be 
+     * considered for the generation
+     */
+    @Parameter
+    private List<String> swaggerExtensions;
+
     @Parameter
     private boolean springmvc;
 
     @Parameter
     private boolean useJAXBAnnotationProcessor;
-
+    
+    @Parameter
+    private boolean useJAXBAnnotationProcessorAsPrimary = true;
+    
     @Parameter
     private String swaggerSchemaConverter;
 
@@ -323,8 +334,16 @@ public class ApiSource {
     public void setSwaggerApiReader(String swaggerApiReader) {
         this.swaggerApiReader = swaggerApiReader;
     }
+    
+    public List<String> getSwaggerExtensions() {
+		return swaggerExtensions;
+	}
 
-    public String getApiSortComparator() {
+	public void setSwaggerExtensions(List<String> swaggerExtensions) {
+		this.swaggerExtensions = swaggerExtensions;
+	}
+
+	public String getApiSortComparator() {
         return apiSortComparator;
     }
 
@@ -378,6 +397,14 @@ public class ApiSource {
 
     public void setUseJAXBAnnotationProcessor(boolean useJAXBAnnotationProcessor) {
         this.useJAXBAnnotationProcessor = useJAXBAnnotationProcessor;
+    }
+
+    public boolean isUseJAXBAnnotationProcessorAsPrimary() {
+        return useJAXBAnnotationProcessorAsPrimary;
+    }
+
+    public void setUseJAXBAnnotationProcessorAsPrimary(boolean useJAXBAnnotationProcessorAsPrimary) {
+        this.useJAXBAnnotationProcessorAsPrimary = useJAXBAnnotationProcessorAsPrimary;
     }
 
     public File getDescriptionFile() {

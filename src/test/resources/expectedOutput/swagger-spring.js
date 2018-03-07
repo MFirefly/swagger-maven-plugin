@@ -18,11 +18,14 @@ var swaggerSpec = {
   "host" : "www.example.com:8080",
   "basePath" : "/api",
   "tags" : [ {
-    "name" : "pet",
-    "description" : "Operations about pets"
+      "name" : "echo",
+      "description" : "Set of simple endpoints that return whatever value you pass in"
   }, {
     "name" : "store",
     "description" : "Operations about store"
+  }, {
+    "name" : "pet",
+    "description" : "Operations about pets"
   }, {
     "name" : "user",
     "description" : "Operations about user"
@@ -34,6 +37,385 @@ var swaggerSpec = {
         "summary" : "testingRootPathResource",
         "description" : "",
         "operationId" : "testingRootPathResource",
+        "responses" : {
+          "200" : {
+            "description" : "successful operation",
+            "schema" : {
+              "type" : "string"
+            }
+          }
+        }
+      }
+    },
+    "/testingEmptyRootPathResource" : {
+      "get" : {
+        "summary" : "testingEmptyRootPathResource",
+        "description" : "",
+        "operationId" : "testingEmptyRootPathResource",
+        "responses" : {
+          "200" : {
+            "description" : "successful operation",
+            "schema" : {
+              "type" : "string"
+            }
+          }
+        }
+      }
+    },
+    "/myResourceImpl/list" : {
+      "get" : {
+        "summary" : "Get a list of items",
+        "description" : "This is a contrived example",
+        "operationId" : "getListOfItems",
+        "produces" : [ "application/json", "application/xml" ],
+        "responses" : {
+          "200" : {
+            "description" : "successful operation",
+            "schema" : {
+              "type" : "array",
+              "items" : {
+                "$ref" : "#/definitions/ListItem"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/echo/cookieValueExpectCookieName" : {
+      "get" : {
+        "tags" : [ "echo" ],
+        "summary" : "",
+        "description" : "",
+        "operationId" : "cookieValueExpectCookieName",
+        "produces" : [ "application/json" ],
+        "parameters" : [ {
+          "name" : "cookieValueName",
+          "in" : "cookie",
+          "required" : true,
+          "type" : "string"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "successful operation",
+            "schema" : {
+              "type" : "string"
+            }
+          }
+        }
+      }
+    },
+    "/echo/cookieValueExpectCookieValue" : {
+      "get" : {
+        "tags" : [ "echo" ],
+        "summary" : "",
+        "description" : "",
+        "operationId" : "cookieValueExpectCookieValue",
+        "produces" : [ "application/json" ],
+        "parameters" : [ {
+          "name" : "cookieValueValue",
+          "in" : "cookie",
+          "required" : true,
+          "type" : "string"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "successful operation",
+            "schema" : {
+              "type" : "string"
+            }
+          }
+        }
+      }
+    },
+    "/echo/cookieValueExpectParameterName" : {
+      "get" : {
+        "tags" : [ "echo" ],
+        "summary" : "",
+        "description" : "",
+        "operationId" : "cookieValueExpectParameterName",
+        "produces" : [ "application/json" ],
+        "parameters" : [ {
+          "name" : "parameterName",
+          "in" : "cookie",
+          "required" : true,
+          "type" : "string"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "successful operation",
+            "schema" : {
+              "type" : "string"
+            }
+          }
+        }
+      }
+    },
+    "/echo/pathVariableExpectParameterName/{parameterName}" : {
+      "get" : {
+        "tags" : [ "echo" ],
+        "summary" : "",
+        "description" : "",
+        "operationId" : "pathVariableExpectParameterName",
+        "produces" : [ "application/json" ],
+        "parameters" : [ {
+          "name" : "parameterName",
+          "in" : "path",
+          "required" : true,
+          "type" : "string"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "successful operation",
+            "schema" : {
+              "type" : "string"
+            }
+          }
+        }
+      }
+    },
+    "/echo/pathVariableExpectVariableName/{parameterName}" : {
+      "get" : {
+        "tags" : [ "echo" ],
+        "summary" : "",
+        "description" : "",
+        "operationId" : "pathVariableExpectVariableName",
+        "produces" : [ "application/json" ],
+        "parameters" : [ {
+          "name" : "pathVariableName",
+          "in" : "path",
+          "required" : true,
+          "type" : "string"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "successful operation",
+            "schema" : {
+              "type" : "string"
+            }
+          }
+        }
+      }
+    },
+    "/echo/pathVariableExpectVariableValue/{parameterName}" : {
+      "get" : {
+        "tags" : [ "echo" ],
+        "summary" : "",
+        "description" : "",
+        "operationId" : "pathVariableExpectVariableValue",
+        "produces" : [ "application/json" ],
+        "parameters" : [ {
+          "name" : "pathVariableValue",
+          "in" : "path",
+          "required" : true,
+          "type" : "string"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "successful operation",
+            "schema" : {
+              "type" : "string"
+            }
+          }
+        }
+      }
+    },
+    "/echo/requestHeaderExpectHeaderName" : {
+      "get" : {
+        "tags" : [ "echo" ],
+        "summary" : "",
+        "description" : "",
+        "operationId" : "requestHeaderExpectHeaderName",
+        "produces" : [ "application/json" ],
+        "parameters" : [ {
+          "name" : "requestHeaderName",
+          "in" : "header",
+          "required" : true,
+          "type" : "string"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "successful operation",
+            "schema" : {
+              "type" : "string"
+            }
+          }
+        }
+      }
+    },
+    "/echo/requestHeaderExpectHeaderValue" : {
+      "get" : {
+        "tags" : [ "echo" ],
+        "summary" : "",
+        "description" : "",
+        "operationId" : "requestHeaderExpectHeaderValue",
+        "produces" : [ "application/json" ],
+        "parameters" : [ {
+          "name" : "requestHeaderValue",
+          "in" : "header",
+          "required" : true,
+          "type" : "string"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "successful operation",
+            "schema" : {
+              "type" : "string"
+            }
+          }
+        }
+      }
+    },
+    "/echo/requestHeaderExpectParameterName" : {
+      "get" : {
+        "tags" : [ "echo" ],
+        "summary" : "",
+        "description" : "",
+        "operationId" : "requestHeaderExpectParameterName",
+        "produces" : [ "application/json" ],
+        "parameters" : [ {
+          "name" : "parameterName",
+          "in" : "header",
+          "required" : true,
+          "type" : "string"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "successful operation",
+            "schema" : {
+              "type" : "string"
+            }
+          }
+        }
+      }
+    },
+    "/echo/requestParamExpectParamName" : {
+      "get" : {
+        "tags" : [ "echo" ],
+        "summary" : "",
+        "description" : "",
+        "operationId" : "requestParamExpectParamName",
+        "produces" : [ "application/json" ],
+        "parameters" : [ {
+          "name" : "requestParamName",
+          "in" : "query",
+          "required" : true,
+          "type" : "string"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "successful operation",
+            "schema" : {
+              "type" : "string"
+            }
+          }
+        }
+      }
+    },
+    "/echo/requestParamExpectParamValue" : {
+      "get" : {
+        "tags" : [ "echo" ],
+        "summary" : "",
+        "description" : "",
+        "operationId" : "requestParamExpectParamValue",
+        "produces" : [ "application/json" ],
+        "parameters" : [ {
+          "name" : "requestParamValue",
+          "in" : "query",
+          "required" : true,
+          "type" : "string"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "successful operation",
+            "schema" : {
+              "type" : "string"
+            }
+          }
+        }
+      }
+    },
+    "/echo/requestParamExpectParameterName" : {
+      "get" : {
+        "tags" : [ "echo" ],
+        "summary" : "",
+        "description" : "",
+        "operationId" : "requestParamExpectParameterName",
+        "produces" : [ "application/json" ],
+        "parameters" : [ {
+          "name" : "parameterName",
+          "in" : "query",
+          "required" : true,
+          "type" : "string"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "successful operation",
+            "schema" : {
+              "type" : "string"
+            }
+          }
+        }
+      }
+    },
+    "/echo/requestPartExpectParameterName" : {
+      "get" : {
+        "tags" : [ "echo" ],
+        "summary" : "",
+        "description" : "",
+        "operationId" : "requestPartExpectParameterName",
+        "produces" : [ "application/json" ],
+        "parameters" : [ {
+          "name" : "parameterName",
+          "in" : "formData",
+          "required" : true,
+          "type" : "string"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "successful operation",
+            "schema" : {
+              "type" : "string"
+            }
+          }
+        }
+      }
+    },
+    "/echo/requestPartExpectPartName" : {
+      "get" : {
+        "tags" : [ "echo" ],
+        "summary" : "",
+        "description" : "",
+        "operationId" : "requestPartExpectPartName",
+        "produces" : [ "application/json" ],
+        "parameters" : [ {
+          "name" : "requestPartName",
+          "in" : "formData",
+          "required" : true,
+          "type" : "string"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "successful operation",
+            "schema" : {
+              "type" : "string"
+            }
+          }
+        }
+      }
+    },
+    "/echo/requestPartExpectPartValue" : {
+      "get" : {
+        "tags" : [ "echo" ],
+        "summary" : "",
+        "description" : "",
+        "operationId" : "requestPartExpectPartValue",
+        "produces" : [ "application/json" ],
+        "parameters" : [ {
+          "name" : "requestPartValue",
+          "in" : "formData",
+          "required" : true,
+          "type" : "string"
+        } ],
         "responses" : {
           "200" : {
             "description" : "successful operation",
@@ -68,8 +450,8 @@ var swaggerSpec = {
         "summary" : "Add a new pet to the store",
         "description" : "",
         "operationId" : "addPet",
-        "consumes" : [ "application/json", "application/xml" ],
-        "produces" : [ "application/json", "application/xml" ],
+        "consumes" : [ "application/xml", "application/json" ],
+        "produces" : [ "application/xml", "application/json" ],
         "parameters" : [ {
           "in" : "body",
           "name" : "body",
@@ -99,8 +481,8 @@ var swaggerSpec = {
         "summary" : "Update an existing pet",
         "description" : "",
         "operationId" : "updatePet",
-        "consumes" : [ "application/json", "application/xml" ],
-        "produces" : [ "application/json", "application/xml" ],
+        "consumes" : [ "application/xml", "application/json" ],
+        "produces" : [ "application/xml", "application/json" ],
         "parameters" : [ {
           "in" : "body",
           "name" : "body",
@@ -138,7 +520,7 @@ var swaggerSpec = {
         "summary" : "Finds Pets by status",
         "description" : "Multiple status values can be provided with comma seperated strings",
         "operationId" : "findPetsByStatus",
-        "produces" : [ "application/json", "application/xml" ],
+        "produces" : [ "application/xml", "application/json" ],
         "parameters" : [ {
           "name" : "status",
           "in" : "query",
@@ -147,8 +529,8 @@ var swaggerSpec = {
           "type" : "array",
           "items" : {
             "type" : "string",
-            "default" : "available",
-            "enum" : [ "available", "pending", "sold" ]
+            "enum" : [ "available", "pending", "sold" ],
+            "default" : "available"
           },
           "collectionFormat" : "multi"
         } ],
@@ -177,7 +559,7 @@ var swaggerSpec = {
         "summary" : "Finds Pets by status",
         "description" : "Multiple status values can be provided with multiple query parameters. Example: ?status=sold&status=pending",
         "operationId" : "findPetsByStatuses",
-        "produces" : [ "application/json", "application/xml" ],
+        "produces" : [ "application/xml", "application/json" ],
         "parameters" : [ {
           "name" : "status",
           "in" : "query",
@@ -186,8 +568,8 @@ var swaggerSpec = {
           "type" : "array",
           "items" : {
             "type" : "string",
-            "default" : "available",
-            "enum" : [ "available", "pending", "sold" ]
+            "enum" : [ "available", "pending", "sold" ],
+            "default" : "available"
           },
           "collectionFormat" : "multi"
         } ],
@@ -216,7 +598,7 @@ var swaggerSpec = {
         "summary" : "Finds Pets by tags",
         "description" : "Muliple tags can be provided with comma seperated strings. Use tags=tag1,tag2,tag3 for testing.",
         "operationId" : "findPetsByTags",
-        "produces" : [ "application/json", "application/xml" ],
+        "produces" : [ "application/xml", "application/json" ],
         "parameters" : [ {
           "name" : "tags",
           "in" : "query",
@@ -245,7 +627,7 @@ var swaggerSpec = {
         "security" : [ {
           "petstore_auth" : [ "write:pets", "read:pets" ]
         } ],
-        "deprecated" : true
+        "deprecated":true
       }
     },
     "/pet/petPing" : {
@@ -254,7 +636,7 @@ var swaggerSpec = {
         "summary" : "ping the service",
         "description" : "",
         "operationId" : "petPing",
-        "produces" : [ "application/json", "application/xml" ],
+        "produces" : [ "application/xml", "application/json" ],
         "responses" : {
           "200" : {
             "description" : "successful operation",
@@ -274,7 +656,7 @@ var swaggerSpec = {
         "summary" : "Retrieve all pets. Pagination supported",
         "description" : "If you wish to paginate the results of this API, supply offset and limit query parameters.",
         "operationId" : "getAllPetsPaginated",
-        "produces" : [ "application/json", "application/xml" ],
+        "produces" : [ "application/xml", "application/json" ],
         "parameters" : [ {
           "name" : "limit",
           "in" : "query",
@@ -310,8 +692,8 @@ var swaggerSpec = {
         "summary" : "Add multiple pets to the store",
         "description" : "",
         "operationId" : "addMultiplePets",
-        "consumes" : [ "application/json", "application/xml" ],
-        "produces" : [ "application/json", "application/xml" ],
+        "consumes" : [ "application/xml", "application/json" ],
+        "produces" : [ "application/xml", "application/json" ],
         "parameters" : [ {
           "in" : "body",
           "name" : "body",
@@ -349,7 +731,7 @@ var swaggerSpec = {
         "summary" : "testExtensions",
         "description" : "",
         "operationId" : "testingExtensions",
-        "produces" : [ "application/json", "application/xml" ],
+        "produces" : [ "application/xml", "application/json" ],
         "responses" : {
           "200" : {
             "description" : "successful operation",
@@ -361,11 +743,11 @@ var swaggerSpec = {
         "security" : [ {
           "petstore_auth" : [ "write:pets", "read:pets" ]
         } ],
-        "x-extensionName3" : "extensionValue3",
         "x-firstExtension" : {
           "extensionName2" : "extensionValue2",
           "extensionName1" : "extensionValue1"
-        }
+        },
+        "x-extensionName3" : "extensionValue3"
       }
     },
     "/pet/testing" : {
@@ -374,7 +756,7 @@ var swaggerSpec = {
         "summary" : "testing",
         "description" : "",
         "operationId" : "testing",
-        "produces" : [ "application/json", "application/xml" ],
+        "produces" : [ "application/xml", "application/json" ],
         "parameters" : [ {
           "name" : "items",
           "in" : "query",
@@ -495,6 +877,26 @@ var swaggerSpec = {
         } ]
       }
     },
+    "/pet/testingMergedAnnotations" : {
+      "get" : {
+        "tags" : [ "pet" ],
+        "summary" : "testingMergedAnnotations",
+        "description" : "",
+        "operationId" : "testingMergedAnnotations",
+        "produces" : [ "application/json" ],
+        "responses" : {
+          "200" : {
+            "description" : "successful operation",
+            "schema" : {
+              "type" : "string"
+            }
+          }
+        },
+        "security" : [ {
+          "petstore_auth" : [ "write:pets", "read:pets" ]
+        } ]
+      }
+    },
     "/pet/testingVendorExtensions" : {
       "get" : {
         "tags" : [ "pet" ],
@@ -511,6 +913,9 @@ var swaggerSpec = {
           },
           "401" : {
             "description" : "Some vendor error description"
+          },
+          "501" : {
+            "description" : "Some vendor error description added using swaggerExtension"
           }
         },
         "security" : [ {
@@ -524,7 +929,7 @@ var swaggerSpec = {
         "summary" : "Find pet by ID",
         "description" : "Returns a pet when ID < 10.  ID > 10 or nonintegers will simulate API error conditions",
         "operationId" : "getPetById",
-        "produces" : [ "application/json", "application/xml" ],
+        "produces" : [ "application/xml", "application/json" ],
         "parameters" : [ {
           "name" : "petId",
           "in" : "path",
@@ -561,7 +966,7 @@ var swaggerSpec = {
         "description" : "",
         "operationId" : "updatePetWithForm",
         "consumes" : [ "application/x-www-form-urlencoded" ],
-        "produces" : [ "application/json", "application/xml" ],
+        "produces" : [ "application/xml", "application/json" ],
         "parameters" : [ {
           "name" : "name",
           "in" : "query",
@@ -600,7 +1005,7 @@ var swaggerSpec = {
         "summary" : "Deletes a pet",
         "description" : "",
         "operationId" : "removePet",
-        "produces" : [ "application/json", "application/xml" ],
+        "produces" : [ "application/xml", "application/json" ],
         "parameters" : [ {
           "name" : "api_key",
           "in" : "header",
@@ -632,7 +1037,7 @@ var swaggerSpec = {
         "summary" : "Place an order for a pet",
         "description" : "",
         "operationId" : "placeOrder",
-        "produces" : [ "application/json", "application/xml" ],
+        "produces" : [ "application/xml", "application/json" ],
         "parameters" : [ {
           "in" : "body",
           "name" : "body",
@@ -661,7 +1066,7 @@ var swaggerSpec = {
         "summary" : "Find purchase order by ID",
         "description" : "For valid response try integer IDs with value <= 5 or > 10. Other values will generated exceptions",
         "operationId" : "getOrderById",
-        "produces" : [ "application/json", "application/xml" ],
+        "produces" : [ "application/xml", "application/json" ],
         "parameters" : [ {
           "name" : "orderId",
           "in" : "path",
@@ -691,7 +1096,7 @@ var swaggerSpec = {
         "summary" : "Delete purchase order by ID",
         "description" : "For valid response try integer IDs with value < 1000. Anything above 1000 or nonintegers will generate API errors",
         "operationId" : "deleteOrder",
-        "produces" : [ "application/json", "application/xml" ],
+        "produces" : [ "application/xml", "application/json" ],
         "parameters" : [ {
           "name" : "orderId",
           "in" : "path",
@@ -710,50 +1115,50 @@ var swaggerSpec = {
         }
       }
     },
-    "/store/orders/{orderIds}" : {
-      "get" : {
-        "tags" : [ "store" ],
-        "summary" : "Find multiple purchase orders by IDs",
-        "description" : "For valid response try integer IDs with value <= 5 or > 10. Other values will generated exceptions",
-        "operationId" : "getOrdersById",
-        "produces" : [ "application/json", "application/xml" ],
-        "parameters" : [ {
-          "name" : "orderIds",
-          "in" : "path",
-          "description" : "IDs of pets that needs to be fetched",
-          "required" : true,
-          "type" : "array",
-          "items" : {
-            "type" : "string"
-          },
-          "collectionFormat" : "csv"
-        } ],
-        "responses" : {
-          "200" : {
-            "description" : "successful operation",
-            "schema" : {
-              "type" : "array",
-              "items" : {
-                "$ref" : "#/definitions/Order"
+      "/store/orders/{orderIds}" : {
+          "get" : {
+              "tags" : [ "store" ],
+              "summary" : "Find multiple purchase orders by IDs",
+              "description" : "For valid response try integer IDs with value <= 5 or > 10. Other values will generated exceptions",
+              "operationId" : "getOrdersById",
+              "produces" : [ "application/xml", "application/json" ],
+              "parameters" : [ {
+                  "name" : "orderIds",
+                  "in" : "path",
+                  "description" : "IDs of pets that needs to be fetched",
+                  "required" : true,
+                  "type" : "array",
+                  "items" : {
+                      "type" : "string"
+                  },
+                  "collectionFormat" : "csv"
+              } ],
+              "responses" : {
+                  "200" : {
+                      "description" : "successful operation",
+                      "schema" : {
+                          "type" : "array",
+                          "items" : {
+                              "$ref" : "#/definitions/Order"
+                          }
+                      }
+                  },
+                  "400" : {
+                      "description" : "Invalid ID supplied"
+                  },
+                  "404" : {
+                      "description" : "Order not found"
+                  }
               }
-            }
-          },
-          "400" : {
-            "description" : "Invalid ID supplied"
-          },
-          "404" : {
-            "description" : "Order not found"
           }
-        }
-      }
-    },
+      },
     "/store/ping" : {
       "get" : {
         "tags" : [ "store" ],
         "summary" : "ping",
         "description" : "",
         "operationId" : "storePing",
-        "produces" : [ "application/json", "application/xml" ],
+        "produces" : [ "application/xml", "application/json" ],
         "responses" : {
           "200" : {
             "description" : "successful operation",
@@ -764,16 +1169,20 @@ var swaggerSpec = {
         }
       }
     },
-    "/testingEmptyRootPathResource" : {
+    "/swaggerless/{petId}" : {
       "get" : {
-        "summary" : "testingEmptyRootPathResource",
-        "description" : "",
-        "operationId" : "testingEmptyRootPathResource",
+        "operationId" : "getPetByName",
+        "parameters" : [ {
+          "name" : "name",
+          "in" : "path",
+          "required" : true,
+          "type" : "string"
+        } ],
         "responses" : {
           "200" : {
             "description" : "successful operation",
             "schema" : {
-              "type" : "string"
+              "$ref" : "#/definitions/Pet"
             }
           }
         }
@@ -785,7 +1194,7 @@ var swaggerSpec = {
         "summary" : "Create user",
         "description" : "This can only be done by the logged in user.",
         "operationId" : "createUser",
-        "produces" : [ "application/json", "application/xml" ],
+        "produces" : [ "application/xml", "application/json" ],
         "parameters" : [ {
           "in" : "body",
           "name" : "body",
@@ -808,7 +1217,7 @@ var swaggerSpec = {
         "summary" : "Creates list of users with given input array",
         "description" : "",
         "operationId" : "createUsersWithArrayInput",
-        "produces" : [ "application/json", "application/xml" ],
+        "produces" : [ "application/xml", "application/json" ],
         "parameters" : [ {
           "in" : "body",
           "name" : "body",
@@ -834,7 +1243,7 @@ var swaggerSpec = {
         "summary" : "Creates list of users with given input array",
         "description" : "",
         "operationId" : "createUsersWithListInput",
-        "produces" : [ "application/json", "application/xml" ],
+        "produces" : [ "application/xml", "application/json" ],
         "parameters" : [ {
           "in" : "body",
           "name" : "body",
@@ -860,7 +1269,7 @@ var swaggerSpec = {
         "summary" : "Logs user into the system",
         "description" : "",
         "operationId" : "loginUser",
-        "produces" : [ "application/json", "application/xml" ],
+        "produces" : [ "application/xml", "application/json" ],
         "parameters" : [ {
           "name" : "username",
           "in" : "query",
@@ -893,7 +1302,7 @@ var swaggerSpec = {
         "summary" : "Logs out current logged in user session",
         "description" : "",
         "operationId" : "logoutUser",
-        "produces" : [ "application/json", "application/xml" ],
+        "produces" : [ "application/xml", "application/json" ],
         "responses" : {
           "default" : {
             "description" : "successful operation"
@@ -907,7 +1316,7 @@ var swaggerSpec = {
         "summary" : "Get user by user name",
         "description" : "",
         "operationId" : "getUserByName",
-        "produces" : [ "application/json", "application/xml" ],
+        "produces" : [ "application/xml", "application/json" ],
         "parameters" : [ {
           "name" : "username",
           "in" : "path",
@@ -935,7 +1344,7 @@ var swaggerSpec = {
         "summary" : "Updated user",
         "description" : "This can only be done by the logged in user.",
         "operationId" : "updateUser",
-        "produces" : [ "application/json", "application/xml" ],
+        "produces" : [ "application/xml", "application/json" ],
         "parameters" : [ {
           "name" : "username",
           "in" : "path",
@@ -965,7 +1374,7 @@ var swaggerSpec = {
         "summary" : "Delete user",
         "description" : "This can only be done by the logged in user.",
         "operationId" : "deleteUser",
-        "produces" : [ "application/json", "application/xml" ],
+        "produces" : [ "application/xml", "application/json" ],
         "parameters" : [ {
           "name" : "username",
           "in" : "path",
@@ -987,7 +1396,7 @@ var swaggerSpec = {
         "summary" : "Updated user",
         "description" : "This can only be done by the logged in user.",
         "operationId" : "updateUser",
-        "produces" : [ "application/json", "application/xml" ],
+        "produces" : [ "application/xml", "application/json" ],
         "parameters" : [ {
           "name" : "username",
           "in" : "path",
@@ -1054,14 +1463,34 @@ var swaggerSpec = {
       "properties" : {
         "id" : {
           "type" : "integer",
-          "format" : "int64"
+          "format" : "int64",
+          "xml": {
+            "namespace": "http://com.wordnik/sample/model/category"
+          }
         },
         "name" : {
-          "type" : "string"
+          "type" : "string",
+          "xml": {
+            "namespace": "http://com.wordnik/sample/model/category"
+          }
         }
       },
       "xml" : {
-        "name" : "Category"
+        "name" : "Category",
+        "namespace": "http://com.wordnik/sample/model/category"
+      }
+    },
+    "ListItem" : {
+      "type" : "object",
+      "properties" : {
+        "id" : {
+          "type" : "integer",
+          "format" : "int64"
+        }
+      },
+      "xml" : {
+        "name" : "ListItem",
+        "namespace": "http://com.wordnik/sample/model"
       }
     },
     "Order" : {
@@ -1091,12 +1520,13 @@ var swaggerSpec = {
         "complete" : {
           "type" : "boolean"
         },
-        "optionalStatus" : {
-          "type" : "string"
-        }
+          "optionalStatus" : {
+              "type" : "string"
+          }
       },
       "xml" : {
-        "name" : "Order"
+        "name" : "Order",
+        "namespace": "http://com.wordnik/sample/model"
       }
     },
     "Pet" : {
@@ -1144,7 +1574,8 @@ var swaggerSpec = {
         }
       },
       "xml" : {
-        "name" : "Pet"
+        "name" : "Pet",
+        "namespace": "http://com.wordnik/sample/model"
       }
     },
     "Tag" : {
@@ -1159,7 +1590,8 @@ var swaggerSpec = {
         }
       },
       "xml" : {
-        "name" : "Tag"
+        "name" : "Tag",
+        "namespace": "http://com.wordnik/sample/model"
       }
     },
     "User" : {
@@ -1195,7 +1627,8 @@ var swaggerSpec = {
         }
       },
       "xml" : {
-        "name" : "User"
+        "name" : "User",
+        "namespace": "http://com.wordnik/sample/model"
       }
     }
   }
